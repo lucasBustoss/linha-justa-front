@@ -31,8 +31,6 @@ export default {
         if (response && response.data) {
           this.leagues = response.data;
         }
-
-        console.log(this.leagues);
       } catch (err) {
         // showError(err);
         return;
