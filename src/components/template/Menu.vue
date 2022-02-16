@@ -10,11 +10,15 @@
         backdrop
         shadow
       >
+        <hr />
         <router-link to="/">
           <div class="sidebar-option">Home</div>
         </router-link>
         <router-link to="/ranking">
           <div class="sidebar-option">Power Ranking</div>
+        </router-link>
+        <router-link to="/lines">
+          <div class="sidebar-option">Linha justa</div>
         </router-link>
       </b-sidebar>
     </h1>

@@ -44,7 +44,23 @@
             :isEditable="isEditable"
             v-if="ranking"
           />
-          <div v-else>{{ messageRanking }}</div>
+          <div class="ranking-content-message" v-if="!showForm && !ranking">
+            <div>
+              {{ messageRanking }}
+            </div>
+            <b-button
+              variant="warning"
+              class="ranking-content-insert"
+              v-if="!ranking && leagueSelected && !showForm"
+              @click="showForm = true"
+              >Inserir ranking</b-button
+            >
+          </div>
+          <RankingForm
+            v-if="showForm"
+            :leagueName="leagueSelected"
+            @insertRanking="insertRanking"
+          />
         </div>
       </div>
 
@@ -64,11 +80,12 @@
 <script>
 import RankingData from "./RankingData.vue";
 import RankingInfo from "./RankingInfo.vue";
+import RankingForm from "./RankingForm.vue";
 
 import api from "@/config/api";
 
 export default {
-  components: { RankingData, RankingInfo },
+  components: { RankingData, RankingInfo, RankingForm },
   computed: {
     leagueNames() {
       return this.leagues.map((l) => l.name);
@@ -84,6 +101,7 @@ export default {
       leagueSelected: "",
       leagues: [],
       ranking: null,
+      showForm: false,
       isEditable: false,
       messageRanking: "Selecione uma liga para apresentar o power ranking",
     };
@@ -105,6 +123,7 @@ export default {
 
         if (!response.data) {
           this.ranking = null;
+          this.showForm = false;
 
           this.messageRanking =
             "Não há nenhum power ranking criado para esta liga.";
@@ -123,6 +142,22 @@ export default {
       } catch (err) {
         // showError(err);
         return;
+      }
+    },
+    async insertRanking(categories) {
+      this.showForm = false;
+      const league = this.leagues.filter((l) => l.name === this.leagueSelected);
+
+      if (league.length > 0) {
+        const ranking = {
+          league_id: league[0].id,
+          categories,
+        };
+
+        const responseRanking = await api.post("/rankings", ranking);
+        this.ranking = responseRanking.data;
+
+        console.log(this.ranking);
       }
     },
     async updateRanking() {
@@ -185,6 +220,26 @@ hr {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.ranking-content-message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.ranking-content-insert {
+  margin-top: 20px;
+}
+
+.ranking-content-insert:hover {
+  background: #face3b;
+}
+
+.ranking-content-insert:active {
+  background: #e7b900;
 }
 
 .ranking-content-data {

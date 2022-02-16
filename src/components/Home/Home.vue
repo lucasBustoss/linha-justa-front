@@ -2,6 +2,7 @@
   <div class="home">
     <router-link to="ranking" class="home-link">Power Ranking</router-link>
     <router-link to="leagues" class="home-link">Leagues</router-link>
+    <router-link to="lines" class="home-link">Linha justa</router-link>
   </div>
 </template>
 
