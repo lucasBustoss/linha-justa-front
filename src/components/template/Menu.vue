@@ -20,6 +20,9 @@
         <router-link to="/lines">
           <div class="sidebar-option">Linha justa</div>
         </router-link>
+        <router-link to="/matches">
+          <div class="sidebar-option">Próximos jogos</div>
+        </router-link>
       </b-sidebar>
     </h1>
   </header>

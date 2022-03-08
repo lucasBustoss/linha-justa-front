@@ -4,7 +4,8 @@ import Router from 'vue-router';
 import Home from '../components/Home/Home'
 import Ranking from '../components/Ranking/Ranking'
 import Leagues from '../components/Leagues/Leagues'
-import LinhaJusta from '../components/LinhaJusta/LinhaJusta'
+import FairLine from '../components/FairLine/FairLine'
+import Matches from '../components/Matches/Matches'
 
 Vue.use(Router);
 
@@ -27,7 +28,13 @@ const routes = [
   {
     name: 'lines',
     path: '/lines',
-    component: LinhaJusta
+    component: FairLine,
+    props: true,
+  },
+  {
+    name: 'matches',
+    path: '/matches',
+    component: Matches
   },
 ]
 

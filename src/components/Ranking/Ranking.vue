@@ -156,8 +156,6 @@ export default {
 
         const responseRanking = await api.post("/rankings", ranking);
         this.ranking = responseRanking.data;
-
-        console.log(this.ranking);
       }
     },
     async updateRanking() {
